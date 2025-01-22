@@ -115,11 +115,35 @@ const makeName = (
 }
 
 const callFunc = (
-    fun: (f:string , l:string , m?:string) => string,
+    fun: (f: string, l: string, m?: string) => string,
     param1: string,
     param2: string): string => {
-    return fun(param1 , param2);
+    return fun(param1, param2);
 }
 
-callFunc(makeName , "Aman" , "Bisht");
+callFunc(makeName, "Aman", "Bisht");
 
+function mul(x: number, y: number): number {
+    return x * y
+}
+
+function div(x: number, y: number): number {
+    return x / y
+}
+
+
+// ! A bit complicated one 
+function applyFunc (
+    func:((x:number , y:number) => number)[] ,
+        values:[number , number][]
+):number[]{
+    const results = [] as number[];
+    for ( let i = 0 ; i < func.length ; i++) {
+        const args = values[i];
+        const result = func[i](args[0] , args[1]);
+        results.push(result);
+    }
+    return results;
+}
+
+applyFunc([mul, div], [[1, 2], [4, 2]]);
