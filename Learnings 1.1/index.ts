@@ -195,7 +195,7 @@ const person :employment = {
     wantRemoteJob:true
 }
 
-const getPerson = (person:employment) :employment => {
+const getPerson = (person:Person) :employment => {
     return {
         name:"Aman Bisht" ,
         age:17 ,
@@ -203,5 +203,23 @@ const getPerson = (person:employment) :employment => {
         skills:["Html" , "CSS" , "JavaScript" , "TypeScript" , "React" , "MongoDB" , "Express" , "Node" , "TailwindCSS" , "ShadCN"] , 
         haveExperience:[true , 5] , 
         wantRemoteJob:true
+    }
+}
+
+// ! CLASSES
+class Name {
+    name:string;
+    constructor(name:string) {
+        this.name = name;
+    }
+    greet() {
+        console.log(`Hello , My Name is ${this.name}`);
+    }
+    getName () {
+        if (this.name.length < 2) return "";
+        return this.name;
+    }
+    setName (name:string) {
+        if  (name.length < 5) return this.name = name;
     }
 }
