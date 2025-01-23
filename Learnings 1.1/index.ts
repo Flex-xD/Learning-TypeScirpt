@@ -147,3 +147,61 @@ function applyFunc (
 }
 
 applyFunc([mul, div], [[1, 2], [4, 2]]);
+
+// ! Advanced function types
+function calculateSum (...numbers:number[]):number{
+    let value = 0;
+    for (let i = 0 ; i < numbers.length ; i++) {
+        value += numbers[i];
+    }
+    return value;
+}
+
+// function getItemsLength (name:string):number;
+// function getItemsLength (names:string[]):string;
+// const getItemsLength = (nameOrNames:unknown) :unknown => {
+//     if (typeof nameOrNames === "string") {
+//         return nameOrNames.length;  // ? It is giving me error for some reason !
+//     } else if (Array.isArray(nameOrNames)) {
+//         return "It is an array"
+//     }
+//     return 0;
+// } 
+
+// getItemsLength("hello")
+
+
+// ! INTERFACES
+interface Person {
+    name:string , 
+    age:number ,
+    height:number ,
+    skills :string[] ,
+    hobbies?:string[]
+}
+
+interface employment extends Person { // ? The properties of the Person interface will be assigned to the employment interface !
+    haveExperience: [boolean , number];
+    watchesAnime?:boolean ,
+    wantRemoteJob:boolean
+} 
+
+const person :employment = {
+    name:"Aman Bisht" ,
+    age:17 ,
+    height:152 ,
+    skills:["Html" , "CSS" , "JavaScript" , "TypeScript" , "React" , "MongoDB" , "Express" , "Node" , "TailwindCSS" , "ShadCN"] , 
+    haveExperience:[true , 5] , 
+    wantRemoteJob:true
+}
+
+const getPerson = (person:employment) :employment => {
+    return {
+        name:"Aman Bisht" ,
+        age:17 ,
+        height:152 ,
+        skills:["Html" , "CSS" , "JavaScript" , "TypeScript" , "React" , "MongoDB" , "Express" , "Node" , "TailwindCSS" , "ShadCN"] , 
+        haveExperience:[true , 5] , 
+        wantRemoteJob:true
+    }
+}
