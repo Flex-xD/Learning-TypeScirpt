@@ -133,14 +133,14 @@ function div(x: number, y: number): number {
 
 
 // ! A bit complicated one 
-function applyFunc (
-    func:((x:number , y:number) => number)[] ,
-        values:[number , number][]
-):number[]{
+function applyFunc(
+    func: ((x: number, y: number) => number)[],
+    values: [number, number][]
+): number[] {
     const results = [] as number[];
-    for ( let i = 0 ; i < func.length ; i++) {
+    for (let i = 0; i < func.length; i++) {
         const args = values[i];
-        const result = func[i](args[0] , args[1]);
+        const result = func[i](args[0], args[1]);
         results.push(result);
     }
     return results;
@@ -149,9 +149,9 @@ function applyFunc (
 applyFunc([mul, div], [[1, 2], [4, 2]]);
 
 // ! Advanced function types
-function calculateSum (...numbers:number[]):number{
+function calculateSum(...numbers: number[]): number {
     let value = 0;
-    for (let i = 0 ; i < numbers.length ; i++) {
+    for (let i = 0; i < numbers.length; i++) {
         value += numbers[i];
     }
     return value;
@@ -173,53 +173,98 @@ function calculateSum (...numbers:number[]):number{
 
 // ! INTERFACES
 interface Person {
-    name:string , 
-    age:number ,
-    height:number ,
-    skills :string[] ,
-    hobbies?:string[]
+    name: string,
+    age: number,
+    height: number,
+    skills: string[],
+    hobbies?: string[]
 }
 
 interface employment extends Person { // ? The properties of the Person interface will be assigned to the employment interface !
-    haveExperience: [boolean , number];
-    watchesAnime?:boolean ,
-    wantRemoteJob:boolean
-} 
-
-const person :employment = {
-    name:"Aman Bisht" ,
-    age:17 ,
-    height:152 ,
-    skills:["Html" , "CSS" , "JavaScript" , "TypeScript" , "React" , "MongoDB" , "Express" , "Node" , "TailwindCSS" , "ShadCN"] , 
-    haveExperience:[true , 5] , 
-    wantRemoteJob:true
+    haveExperience: [boolean, number];
+    watchesAnime?: boolean,
+    wantRemoteJob: boolean
 }
 
-const getPerson = (person:Person) :employment => {
+const person: employment = {
+    name: "Aman Bisht",
+    age: 17,
+    height: 152,
+    skills: ["Html", "CSS", "JavaScript", "TypeScript", "React", "MongoDB", "Express", "Node", "TailwindCSS", "ShadCN"],
+    haveExperience: [true, 5],
+    wantRemoteJob: true
+}
+
+const getPerson = (person: Person): employment => {
     return {
-        name:"Aman Bisht" ,
-        age:17 ,
-        height:152 ,
-        skills:["Html" , "CSS" , "JavaScript" , "TypeScript" , "React" , "MongoDB" , "Express" , "Node" , "TailwindCSS" , "ShadCN"] , 
-        haveExperience:[true , 5] , 
-        wantRemoteJob:true
+        name: "Aman Bisht",
+        age: 17,
+        height: 152,
+        skills: ["Html", "CSS", "JavaScript", "TypeScript", "React", "MongoDB", "Express", "Node", "TailwindCSS", "ShadCN"],
+        haveExperience: [true, 5],
+        wantRemoteJob: true
     }
 }
 
 // ! CLASSES
-class Name {
-    name:string;
-    constructor(name:string) {
+class guy {
+    protected name: string;
+    constructor(name: string) {
         this.name = name;
+        this.greet(); // ? Here I can use the greet even though it is private because as it being used inside the class where greet is initialized , I would't be able to use it somewhere else outside here
     }
-    greet() {
+    private greet() {
         console.log(`Hello , My Name is ${this.name}`);
     }
-    getName () {
+    getName() {
         if (this.name.length < 2) return "";
         return this.name;
     }
-    setName (name:string) {
-        if  (name.length < 5) return this.name = name;
+    setName(name: string) {
+        if (name.length < 5) return this.name = name;
     }
 }
+
+
+class anotherGuy extends guy {
+    greetMe() {
+        console.log(this.name); // ? Here I can use the this.name as name is protected in the guy class , if it would have been private I would'nt have been able to use it !
+    }
+}
+
+const p1 = new guy("Tim");
+p1.getName();
+
+// ! Abstract classes
+
+// ? These classes are not used for instances and are only used for the extending other classes !
+abstract class Animal { 
+    abstract makeSound (duration:number):void; // ? If a function is abstract it must be used or implemented !
+    move (duration:number ) {
+        console.log("Moving along...");
+        this.makeSound(duration);
+    }
+    abstract attack(does:boolean):undefined;
+    beSafe(does:boolean) {
+        if (this.attack(does)) {
+            if (does === true) {
+                return console.log("Be safe , It may attack you !")
+            }
+            return console.log("It is a dangerous animal and may attack you !")
+        }
+        console.log("It will not attack you and is quite friendly !");
+    }
+}
+
+class Lion extends Animal {
+    makeSound(duration: number): void {
+        console.log("Roar roar...")
+    }
+    attack(does:true): undefined {
+    }
+}
+
+
+const lion = new Lion();
+lion.move(20);
+lion.makeSound(10);
