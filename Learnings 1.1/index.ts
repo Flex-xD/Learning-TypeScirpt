@@ -236,16 +236,15 @@ const p1 = new guy("Tim");
 p1.getName();
 
 // ! Abstract classes
-
 // ? These classes are not used for instances and are only used for the extending other classes !
-abstract class Animal { 
-    abstract makeSound (duration:number):void; // ? If a function is abstract it must be used or implemented !
-    move (duration:number ) {
+abstract class Animal {
+    abstract makeSound(duration: number): void; // ? If a function is abstract it must be used or implemented !
+    move(duration: number) {
         console.log("Moving along...");
         this.makeSound(duration);
     }
-    abstract attack(does:boolean):undefined;
-    beSafe(does:boolean) {
+    abstract attack(does: boolean): undefined;
+    beSafe(does: boolean) {
         if (this.attack(does)) {
             if (does === true) {
                 return console.log("Be safe , It may attack you !")
@@ -260,11 +259,44 @@ class Lion extends Animal {
     makeSound(duration: number): void {
         console.log("Roar roar...")
     }
-    attack(does:true): undefined {
+    attack(does: true): undefined {
     }
 }
-
 
 const lion = new Lion();
 lion.move(20);
 lion.makeSound(10);
+
+// ! Classes and interfaces
+interface janwar {
+    name: string;
+    move(): void;
+}
+
+class kutta implements janwar {
+    name: string;
+
+    constructor(name: string) {
+        this.name = name;
+    }
+
+    move() {
+        console.log(`${this.name} is running.`);
+    }
+}
+
+const dog = new kutta("Buddy");
+dog.move(); // "Buddy is running."
+
+
+// ! Static
+class MathUtil {
+    static PI = 3.14; // Static property
+
+    static calculateCircleArea(radius: number): number {
+        return this.PI * radius * radius; // Access static property using "this"
+    }
+}
+
+console.log(MathUtil.PI); // 3.14
+console.log(MathUtil.calculateCircleArea(5)); // 78.5
