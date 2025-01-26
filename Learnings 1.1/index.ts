@@ -300,3 +300,57 @@ class MathUtil {
 
 console.log(MathUtil.PI); // 3.14
 console.log(MathUtil.calculateCircleArea(5)); // 78.5
+
+
+class calculator {
+    static instanceCount: number = 0;
+    name: string;
+
+    constructor(name: string) {
+        calculator.instanceCount++;
+        this.name = name;
+    }
+
+    static decreaseCount() {
+        this.instanceCount--;
+    }
+}
+
+const cal1 = new calculator("Tim");
+console.log(calculator.instanceCount)
+
+// ! GENERIC'S
+class DataStore<T> {
+    private items: T[] = [];
+    addItem(item: T): void {
+        this.items.push(item);
+    }
+
+    getItem(index: number): T {
+        return this.items[index]
+    }
+
+    removeItem(index: number): void {
+        this.items.splice(index, 1);
+    }
+
+    getAllItems(): T[] {
+        return this.items;
+    }
+}
+
+interface User { // ? I can also use this in place of T 
+    name: string;
+    id: number;
+}
+
+const data = new DataStore<string>(); // ? Here I am using string in place of T , even I can use numbers , boolean etc ! 
+
+function getValue<K, V>(key: K, valueOne: V, valueTwo: V): V {
+    if (key) {
+        return valueOne;
+    }
+    return valueTwo;
+}
+
+getValue<string , number>("Batman" , 1 , 2);
