@@ -353,4 +353,98 @@ function getValue<K, V>(key: K, valueOne: V, valueTwo: V): V {
     return valueTwo;
 }
 
-getValue<string , number>("Batman" , 1 , 2);
+getValue<string, number>("Batman", 1, 2);
+
+//! TYPE ALIASES
+type Coordinates = [number, number];
+type strings = [string][];
+type stringCoords = Coordinates | strings
+
+function compareCoords(p1: Coordinates, p2: Coordinates): Coordinates {
+    return p1;
+}
+
+// ! UNION AND INTERSECTION
+// ? UNION
+type stringOrNumber = string | number | boolean
+type strOrNum = (string & number)[];
+
+interface businessPartner {
+    name: string;
+}
+
+interface contact {
+    address: string;
+    phoneNo: number
+}
+
+type businessContact = businessPartner | contact;
+const doingBusiness = (business: businessContact) => {
+    if ("name" in business) {
+        console.log(business.name, " here ! , Nice to meet you !")
+    } else {
+        console.log(business.address, business.phoneNo);
+    }
+}
+
+// ! TYPE GUARDS
+class Dog {
+    firstName: string
+    lastName: string
+    constructor(firstName: string, lastName: string) {
+        this.firstName = firstName
+        this.lastName = lastName
+    }
+}
+
+class Cat {
+    firstName: string
+    constructor(firstName: string) {
+        this.firstName = firstName
+    }
+}
+
+function isDog(pet: Cat | Dog): pet is Dog {
+    return (pet as Dog).lastName !== undefined;
+}
+
+function getName(animal: Dog | Cat) {
+    if (isDog(animal)) {
+        console.log(`There is a animal whose firstName is ${animal.firstName} and whose lastName is ${animal.lastName}`);
+    } else {
+        console.log(`The animal's firstName is ${animal.firstName}`);
+    }
+}
+
+// ! DISCRIMINATED UNIONS 
+interface warning {
+    type: "warning"
+    msg: string
+}
+
+interface info {
+    type: "info"
+    text: string
+}
+
+interface success {
+    type: "success"
+    message: string
+}
+
+type log = warning | info | success;
+let log: log;
+
+function handleMessage(log: log) {
+    switch (log.type) {
+        case "warning":
+            console.log(log.msg);
+            break;
+        case "info":
+            console.log(log.text)
+            break;
+        case "success":
+            console.log(log.message)
+            break;
+    }
+}
