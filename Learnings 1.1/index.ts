@@ -425,7 +425,7 @@ interface warning {
 interface info {
     type: "info"
     text: string
-}
+} 
 
 interface success {
     type: "success"
@@ -503,3 +503,29 @@ const todosPreview : Omit<todos , "id"> = { // ? It's opposite of pick
     title:"Make lunch" , 
     description:"Don't overcook it and make it nutrious !"
 }
+
+// ! Import and exporting modules
+import { addition , subtraction } from "./utils"; // ? If I will add .ts at the end it will stop working 
+const result = addition(1 , 2);
+console.log(result);
+subtraction(5 , 5);
+
+// ! NAMESPACES
+namespace Utils {
+    export const Name:string = "Aman Bisht" 
+    export const adding = (x :number , y:number) :number => {
+        return x + y;
+    }
+    export class myClass {
+        age:number 
+        constructor(age:number) {
+            this.age = age
+        }
+    }
+    export interface myinterface{
+        newType:string
+    }
+}
+
+const name  = Utils.Name;
+// I can export namespaces anywhere and I don't even have to use the import or export statement 
