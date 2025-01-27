@@ -448,3 +448,58 @@ function handleMessage(log: log) {
             break;
     }
 }
+
+// ! UTILITY TYPES
+interface todo {
+    title:string 
+    descirption?:string
+}
+
+// Partial
+const todolist = (todo:Partial<todo>) => {  // ? It makes the property of the interface optional 
+    todo.descirption;
+    todo.title;
+}
+
+// Readonly
+const myTodo :Readonly<todo> = {title:"I am a batman"}; // ? It will make this read only , I can use this value wherever I want to but I cannot change it 
+
+// Record
+interface pageInfo {
+    title:string
+}
+
+// * console.log("Hello world ,  there is the best thing in this world I can be anything I want to be I am going to cut any distractions that are out there and I am going to foucs on my life and nothing else , I am going to be the man that I always wanted to be and I will be that man , mark my words ! I have taken this commitment that I am going on discipline and no one can stop me now , I will do anything that I necessary to evolve and grow and I will do it with my whole heart and will not fear taking steps ahead !"f)
+
+const pages :Record<string , pageInfo> = {
+    home:{title:"It is the Home page"} , 
+    about:{title:"It is the about page"} , 
+    contact : {title:"It is the contact page !"}
+}
+
+// ? It is just a cleaner way of writing the code , here home , about and contact belong to the string part and the title is defined in the pageInfo interface
+
+const pageNumber:Record<number , pageInfo> = {
+    0: {title:"Homepage"} , 
+    1 : {title:"AboutPage"} , 
+    2 :{title:"ContactPage"}
+}
+
+// Pick
+interface todos {
+    id:number
+    title:string
+    description:string
+}
+
+const myTodos :Pick<todos , "title" | "description" > = { // ? Here from the todos , I am picking only title and description property here 
+    title:"Coding" , 
+    description:"Work on the animite project !"
+}
+
+// Omit
+
+const todosPreview : Omit<todos , "id"> = { // ? It's opposite of pick
+    title:"Make lunch" , 
+    description:"Don't overcook it and make it nutrious !"
+}
